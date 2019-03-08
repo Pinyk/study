@@ -613,26 +613,22 @@ void repassword()
 	char str[9]={0};
 	fp=fopen("d:\\password.txt","r");
 	fscanf(fp,"%s",str);
+	fclose(fp);
 	char input[20]={0};
 	char a[20]={0};
 	char b[20]={0};
 	printf("请输入旧密码：");
-	scanf("%s",&input);
+	scanf("%s",input);
 	if(!(strcmp(input,str)))
 	{
 		printf("请输入新密码：");
-		scanf("%s",&a);
+		scanf("%s",a);
 		printf("请再次输入新密码：");
-		scanf("%s",&b);
+		scanf("%s",b);
 		if(!(strcmp(a,b)))
 		{
 			fp1=fopen("d:\\password.txt","wb");
-			int i=0;
-			while(a[i])
-			{
-				putw(a[i],fp1);
-				i++;
-			}
+			fprintf(fp,"%s",a);
 			fclose(fp1);
 			printf("密码修改成功！");
 			return;
