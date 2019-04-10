@@ -1,0 +1,30 @@
+#include<stdio.h>
+int main()
+{
+	int i,j,a,flag,t;
+	for(j=3;j<=100;j++)
+	{
+		flag=1;
+		for(i=2;i<j;i++)
+		{
+			if(j%i==0)
+			{
+				flag=0;
+				break;
+			}
+		}
+		if(flag==0)
+		{
+			;
+		}
+		else
+		{
+			t++;
+			printf("%3d",j);
+			if(t%10==0)
+			{
+				printf("\n");
+			}
+		} 
+	} 
+}
