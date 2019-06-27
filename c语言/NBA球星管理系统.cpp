@@ -40,7 +40,6 @@ int main()
 {
 	nodefirst=nodeend=NULL;
 	gsave=gfirst=0;
-	
 	login();
 	readdata();
 	menu();
@@ -578,7 +577,7 @@ void login()
     char input[20] = { 0 };
     while (i)
     {
-        printf("ÇëÊäÈëÄãµÄµÇÂ¼ÃÜÂë:");
+        printf("ÇëÊäÈëÄãµÄµÇÂ¼ÃÜÂë: ");
         scanf("%s", input);
         if (!strcmp(str, input))
         {
@@ -598,7 +597,6 @@ void login()
     if (j == 0)
     {
         printf("µÇÂ¼³É¹¦£¡\n");
- 
     }
     else if (j == -1)
     {
