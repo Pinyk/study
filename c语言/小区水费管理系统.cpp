@@ -37,43 +37,28 @@ typedef struct teachers
 	struct teachers *next1;
 }man,*woman;
 cat g;
-void stu1();
-void stu11();
-void stu12();
+void mainmenu();
+void usermenu();
+void managermenu();
 cat create();
 void output(cat h);
-void stu21();
+void display();
 void news();
-void news1();
-void stu22();
-void stu23();
-void stu31();
-void stu32();
-void stu33();
-void deposit(cat h);
-void stu34();
-void stu35(); 
-void stu42();
-void stu51();
+void readdata();
+void usearch();
+void usort();
+void msearch1();
+void msearch2();
+void modify();
+void savedata(cat h);
+void madd();
+void mdelete(); 
+void managerrepassword();
+void userlogin();
 void day();
 void stu43();
-int l=1; 
-/*void lation();
-void lation(cat h)
-{
-	   dog *a;
-	    int x;
-		x=a->water;
-		if(x<=12)
-		{
-			a->cost=x*0.8;
-		 } 
-		 if(x>12)
-		 {
-		 	a->cost=12*0.8+(x-12)*1.8;
-		 }
-}*/
-void stu35()
+int l=1;
+void mdelete()
 {
 	cat m;
 	cat h;
@@ -87,7 +72,7 @@ void stu35()
 	printf("\t\t\t请输入要删除的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	p=m->next;
 	r=m;
@@ -97,21 +82,18 @@ void stu35()
 		{
 		    r->next=p->next;
 		    free(p);
-			//printf("第%d楼，第%d单，第%d户\n本月用水量为：%d\n水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
 			break;
-		}
-     
+		} 
      	p=p->next;
      	r=r->next;
-	 
 	}
-	deposit(m);
+	savedata(m);
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu34()
+void madd()
 {
 	cat m;
 	cat h;
@@ -125,7 +107,7 @@ void stu34()
 	printf("\t\t\t请输入要增加的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();//g拿到链表遍历文件的头结点地址 
 	m=g;
 	r=m->next;
 	p=m;
@@ -157,7 +139,7 @@ void stu34()
 		    }
 		    h->next=NULL;
 		    p->next=h;
-			//printf("第%d楼，第%d单，第%d户\n本月用水量为：%d\n水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
+			printf("第%d楼，第%d单，第%d户\n本月用水量为：%d\n水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
 			break;
 		}
      else
@@ -165,13 +147,13 @@ void stu34()
      	m=m->next;
 	 }
 	}
-	deposit(g);
+	savedata(g);
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu33()
+void modify()
 {
 	cat m;
 	int a,b,c,n,y;
@@ -181,7 +163,7 @@ void stu33()
 	printf("\t\t\t请输入要更改的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	while(m!=NULL)
 	{
@@ -193,7 +175,7 @@ void stu33()
 			m->water=n;
 			if(m->water<=12)
 		    {
-			m->cost=m->water*0.8;
+				m->cost=m->water*0.8;
 		    } 
 		    if(m->water>12)
 		    {
@@ -207,13 +189,13 @@ void stu33()
      	m=m->next;
 	 }
 	}
-	deposit(g);
+	savedata(g);
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu32()
+void msearch2()
 {
 	cat m;
 	int a,b,y;
@@ -223,7 +205,7 @@ void stu32()
 	printf("\t\t\t请输入要查询的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	while(m!=NULL)
 	{
@@ -236,9 +218,9 @@ void stu32()
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu31()
+void msearch1()
 {
 	cat m;
 	int a,b,c,y;
@@ -248,7 +230,7 @@ void stu31()
 	printf("\t\t\t请输入要查询的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	while(m!=NULL)
 	{
@@ -263,9 +245,9 @@ void stu31()
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu23()
+void usort()
 {
 	cat m;
 	cat h;
@@ -285,7 +267,7 @@ void stu23()
 	scanf("\t\t\t%d %d %d",&a,&b,&c);
 	//printf("请输入要查询的月份\n");
 	//scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	h=(cat)malloc(sizeof(dog));
     h->next=NULL;
@@ -310,43 +292,43 @@ void stu23()
 	}
     p=h->next;
     q=p->next;
-     while(p!=NULL)
+    while(p!=NULL)
     {
-    q=p->next;
-	while(q!=NULL)
-	{
-	if(p->cost>q->cost)
-	{
-		    e1=p->lnumber;
- 			e2=p->dnumber;
- 			e3=p->hnumber;
- 			e4=p->month;
- 			e5=p->water;
- 			e6=p->cost;
- 			p->lnumber=q->lnumber;
- 			p->dnumber=q->dnumber;
- 			p->hnumber=q->hnumber;
- 			p->month=q->month;
- 			p->water=q->water;
- 		    p->cost=q->cost;
- 			q->lnumber=e1;
- 			q->dnumber=e2;
- 			q->hnumber=e3;
- 			q->month=e4;
- 			q->water=e5;
- 			q->cost=e6;
-	}
-	q=q->next;
-   }
-   p=p->next;
+    	q=p->next;
+		while(q!=NULL)
+		{
+			if(p->cost>q->cost)
+			{
+		   		e1=p->lnumber;
+ 				e2=p->dnumber;
+ 				e3=p->hnumber;
+ 				e4=p->month;
+ 				e5=p->water;
+ 				e6=p->cost;
+ 				p->lnumber=q->lnumber;
+ 				p->dnumber=q->dnumber;
+ 				p->hnumber=q->hnumber;
+ 				p->month=q->month;
+ 				p->water=q->water;
+ 		    	p->cost=q->cost;
+ 				q->lnumber=e1;
+ 				q->dnumber=e2;
+ 				q->hnumber=e3;
+ 				q->month=e4;
+ 				q->water=e5;
+ 				q->cost=e6;
+			}
+			q=q->next;
+   		}
+   		p=p->next;
     }
     output(h);
     printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
 	system("cls");
-	stu11();		
+	usermenu();		
 }
-void stu22()
+void usearch()
 {
 	cat m;
 	int a,b,c,y;
@@ -356,7 +338,7 @@ void stu22()
 	printf("\t\t\t请输入要查询的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
-	news1();
+	readdata();
 	m=g;
 	while(m!=NULL)
 	{
@@ -371,19 +353,19 @@ void stu22()
 	if(m==NULL)
 	{
 		printf("\t\t\t抱歉无此用户或无此月水费\n");
-		}
-		printf("\t\t\t按任意键返回上一级\n");
-	    getch(); 
-	    system("cls");
-	    stu11();			
+	}
+	printf("\t\t\t按任意键返回上一级\n");
+    getch(); 
+    system("cls");
+    usermenu();			
 }
-void news1()/*用户端读取文件*/ 
+void readdata()/*用户端读取文件*/ 
 {
 	cat h;
 	FILE *fp;
 	dog* bang;
     dog* r;
-    fp=fopen("F:/zhangsan.txt","r");
+    fp=fopen("F:/userdata.txt","r");
 	h=(cat)malloc(sizeof(dog));
     h->next=NULL;
     r=h;
@@ -407,81 +389,83 @@ void news()
     cat h;
     dog* bang;
     dog* r;
-    fp=fopen("F:/zhangsan.txt","r");
-    printf("\t\t\t请输入激活数\n"); 
+    fp=fopen("F:/userdata.txt","r");
+    printf("\t\t\t请输入激活数\n");
     printf("\t\t\t");
     scanf("%d",&y);
     if(fp==NULL)
     {
-    if(y==1)
-	{g=create();}
+	    if(y==1)
+		{
+			g=create();
+		}
     }
     else
     {
-    if(y==1)
-    {
-	h=(cat)malloc(sizeof(dog));
-    h->next=NULL;
-    r=h;
-	bang=(dog*)malloc(sizeof(dog));
-	bang->next=r->next;
-	while((fread(bang,sizeof(dog),1,fp))==1)
-	{
-		r->next=bang;
-	    r=bang;
-	    bang=(dog*)malloc(sizeof(dog));
-	    bang->next=r->next;
-   } 
-   fclose(fp);
-   l=r->month+1;
-   fp=fopen("F:/zhangsan.txt","a+");
-   printf("\t\t\t请输入唤醒数\n");
-   srand((unsigned)(time(NULL)));
-   printf("\t\t\t");
-   scanf("%d",&x); 
-	while(x!=0)
-	{
-	for(k=1;k<=A;k++)
-	{
-	   for(j=1;j<=B;j++)
-	   {
-	   	for(i=1;i<=C;i++)
-	   {
-	   bang=(dog*)malloc(sizeof(dog));
-	   bang->next=r->next;
-	   bang->lnumber=k;
-	   bang->dnumber=j;
-	   bang->hnumber=i;
-	   bang->month=l; 
-	   bang->water=rand()%(20-1)+1;
-	   if(bang->water<=12)
+    	if(y==1)
+    	{
+			h=(cat)malloc(sizeof(dog));
+    		h->next=NULL;
+    		r=h;
+		bang=(dog*)malloc(sizeof(dog));
+		bang->next=r->next;
+		while((fread(bang,sizeof(dog),1,fp))==1)
 		{
-			bang->cost=bang->water*0.8;
-		 } 
-		 if(bang->water>12)
-		 {
-		 	bang->cost=12*0.8+(bang->water-12)*1.8;
-		 }
-	   r->next=bang;
-	   r=bang;
-	   fwrite(bang,sizeof(dog),1,fp);
-	   } 
-   } 
-  }
-    l=l+1;
-    printf("\t\t\t请输入唤醒数\n");
-    printf("\t\t\t");
-    scanf("%d",&x);   
-  }
+			r->next=bang;
+	    	r=bang;
+	    	bang=(dog*)malloc(sizeof(dog));
+	    	bang->next=r->next;
+   		} 
+		fclose(fp);
+   		l=r->month+1;
+   		fp=fopen("F:/userdata.txt","a+");
+   		printf("\t\t\t请输入唤醒数\n");
+   		srand((unsigned)(time(NULL)));
+   		printf("\t\t\t");
+   		scanf("%d",&x); 
+		while(x!=0)
+		{
+			for(k=1;k<=A;k++)
+			{
+	   			for(j=1;j<=B;j++)
+	   			{
+	   				for(i=1;i<=C;i++)
+	   				{
+					   bang=(dog*)malloc(sizeof(dog));
+					   bang->next=r->next;
+					   bang->lnumber=k;
+					   bang->dnumber=j;
+					   bang->hnumber=i;
+					   bang->month=l; 
+					   bang->water=rand()%(20-1)+1;
+					   if(bang->water<=12)
+						{
+						bang->cost=bang->water*0.8;
+		 				} 
+		 				if(bang->water>12)
+		 				{
+						 	bang->cost=12*0.8+(bang->water-12)*1.8;
+						}
+					    r->next=bang;
+					    r=bang;
+					    fwrite(bang,sizeof(dog),1,fp);
+					} 
+   				} 
+  			}
+    		l=l+1;
+    		printf("\t\t\t请输入唤醒数\n");
+    		printf("\t\t\t");
+    		scanf("%d",&x);   
+  			}
 	//system("cls");
- }
-}
+ 		}
+	}
     fclose(fp);
     g=h;
     printf("\t\t\t按任意键返回\n");
 	getch(); 
     system("cls");
-	stu1();		
+	mainmenu();		
 }
 cat create()
 {
@@ -493,47 +477,47 @@ cat create()
 	h=(cat)malloc(sizeof(dog));
 	h->next=NULL;
 	r=h;
-	fp=fopen("F:/zhangsan.txt","w+");
+	fp=fopen("F:/userdata.txt","w+");
 	srand((unsigned)(time(NULL)));
 	printf("\t\t\t请输入唤醒数\n");
 	printf("\t\t\t");
     scanf("%d",&x);
 	while(x!=0)
 	{
-	for(k=1;k<=A;k++)
-	{
-	 for(j=1;j<=B;j++)
-	  {
-	   	for(i=1;i<=C;i++)
-	   {
-	   bang=(dog*)malloc(sizeof(dog));
-	   bang->next=r->next;
-	   bang->lnumber=k;
-	   bang->dnumber=j;
-	   bang->hnumber=i;
-	   bang->month=l; 
-	   bang->water=rand()%(20-1)+1;
-	   if(bang->water<=12)
+		for(k=1;k<=A;k++)
 		{
-			bang->cost=bang->water*0.8;
-		 } 
-		 if(bang->water>12)
-		 {
-		 	bang->cost=12*0.8+(bang->water-12)*1.8;
-		 }
-	   fwrite(bang,sizeof(dog),1,fp);
-	   r->next=bang;
-	   r=bang;
-      }
-    } 
-   }  
-    printf("\t\t\t请输入唤醒数\n");
-    printf("\t\t\t");
-    scanf("%d",&x);
-    l=l+1; 
- }
- fclose(fp);
- return h;
+	 		for(j=1;j<=B;j++)
+	  			{
+	   				for(i=1;i<=C;i++)
+	   				{
+					   bang=(dog*)malloc(sizeof(dog));
+					   bang->next=r->next;
+					   bang->lnumber=k;
+					   bang->dnumber=j;
+					   bang->hnumber=i;
+					   bang->month=l; 
+					   bang->water=rand()%(20-1)+1;
+					   if(bang->water<=12)
+						{
+							bang->cost=bang->water*0.8;
+						 } 
+						 if(bang->water>12)
+						 {
+						 	bang->cost=12*0.8+(bang->water-12)*1.8;
+						 }
+					   fwrite(bang,sizeof(dog),1,fp);
+					   r->next=bang;
+					   r=bang;
+      				}
+    			} 
+  		}  
+    	printf("\t\t\t请输入唤醒数\n");
+    	printf("\t\t\t");
+   		scanf("%d",&x);
+   		l=l+1; 
+ 	}
+	fclose(fp);
+	return h;
 }
 void output(cat h)
 {
@@ -546,11 +530,11 @@ void output(cat h)
 		a=a->next;
 	}
 }
-void deposit(cat h)/*写文件*/ 
+void savedata(cat h)/*写文件*/ 
 {
 	FILE *fp;
 	h=h->next;
-	fp=fopen("F:/zhangsan.txt","w+");
+	fp=fopen("F:/userdata.txt","w+");
 	while(h!=NULL)
 	{
 
@@ -559,16 +543,16 @@ void deposit(cat h)/*写文件*/
 	}
   fclose(fp);
 }
-void stu21()
+void display()
 {
-	news1();
+	readdata();
 	output(g);
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu12();		
+	managermenu();		
 }
-void stu1()
+void mainmenu()
 {
 	int a;
 	printf("\t\t-----------------------------------------\n");
@@ -576,22 +560,21 @@ void stu1()
 	printf("\t\t\t请选择用户端还是管理员端\n");
 	printf("\t\t\t输入1：用户端\n");
 	printf("\t\t\t输入2：管理员端\n");
-	printf("\t\t\t输入3：机器端\n");
+	printf("\t\t\t输入3：随机生成用户信息\n");
 	printf("\t\t\t输入0：退出程序\n");
 	printf("\t\t\t");
 	scanf("%d",&a);
 	system("cls");
 	switch(a)
 	{
-		case 1:stu51();break;
-		case 2:stu42();break;
+		case 1:userlogin();break;
+		case 2:managerrepassword();break;
 		case 3:news();break;
 		case 0:printf("\t\t\t退出程序\n"); break;
 		default:printf("\t\t\t没有此客户端\n");
 	}
-	
 }
-void stu11()
+void usermenu()
 {
 	int a;
 	printf("\t\t---------------------------------------------------------------------\n");
@@ -604,17 +587,17 @@ void stu11()
 	system("cls");
 	switch(a)
 	{
-		case 1:stu22();break;
-		case 2:stu23();break;
-		case 3:stu1();break;
+		case 1:usearch();break;
+		case 2:usort();break;
+		case 3:mainmenu();break;
 		default:printf("\t\t\t没有此功能\n");
 	}
 	printf("\t\t\t按任意键返回上一级\n");
 	 getch(); 
 	 system("cls");
-	 stu11();		
+	 usermenu();		
  } 
-void stu12()
+void managermenu()
 {
 	int b;
 	printf("\t\t---------------------------------------------------------------------\n");
@@ -631,20 +614,20 @@ void stu12()
 	system("cls");
 	switch(b)
 	{
-		case 1:stu31();break;
-		case 2:stu32();break;
-		case 3:stu33();break;
-		case 4:stu34();break;
-		case 5:stu35();break; 
-		case 6:stu21();break;
-		case 7:stu1();break;
-		}
+		case 1:msearch1();break;
+		case 2:msearch2();break;
+		case 3:modify();break;
+		case 4:madd();break;
+		case 5:mdelete();break; 
+		case 6:display();break;
+		case 7:mainmenu();break;
+	}
 		printf("\t\t\t按任意键返回上一级\n");
 	 getch(); 
 	 system("cls");
-	 stu12();				
+	 managermenu();				
 }	 
-void stu51()
+void userlogin()
 {
 	char i[20],j[20],fa[20],fa1[20],t[20],w[20];
 	int m,n,k;
@@ -654,25 +637,7 @@ void stu51()
     man* bang;
     man* r;
     man* q;
-    /*printf("原始用户登陆\n");
-	fp=fopen("F:/zhangwu.txt","w+");
-	for(m=1;m<=A;m++)
-	{ 
-	for(n=1;n<=B;n++)
-	{
-	for(k=1;k<=C;k++)
-	{
-	scanf("%s",&fa);
-	fputs(fa,fp);
-	fputc('\n',fp);
-	scanf("%s",&fa1);
-	fputs(fa1,fp);
-	fputc('\n',fp);
-    } 
-    }
-    }
-	fclose(fp);*/
-	fp=fopen("F:/zhangwu.txt","r");
+	fp=fopen("F:/userpassword.txt","r");
 	h=(woman)malloc(sizeof(man));
     h->next1=NULL;
     r=h;
@@ -705,7 +670,7 @@ void stu51()
    {
    	if((strcmp(i,q->min))==0&&(strcmp(j,q->max))==0)
    	{
-   		stu11();
+   		usermenu();
    		break;
 	}
 	q=q->next1;
@@ -731,7 +696,7 @@ void stu51()
    }
    if(q==NULL)
    {
-   	fp=fopen("F:/zhangwu.txt","a+");
+   	fp=fopen("F:/userpassword.txt","a+");
    	printf("\t\t\t请输入密码\n");
    	printf("\t\t\t");
    	scanf("%s",&j);
@@ -742,7 +707,7 @@ void stu51()
 	fclose(fp);
 	printf("\t\t\t注册成功\n");
    }	
-	} 
+} 
 if(x==3)
 {
 	printf("\t\t\t请输入用户名\n");
@@ -768,7 +733,7 @@ if(x==3)
    	printf("\t\t\t用户名或密码输入错误\n");
    }
 	h=h->next1;
-	fp=fopen("F:/zhangwu.txt","w+");
+	fp=fopen("F:/userpassword.txt","w+");
 	while(h!=NULL)
 	{
 
@@ -787,22 +752,18 @@ if(x!=3&&x!=2&&x!=1)
     printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu1();		
+	mainmenu();		
 }
-void stu42()
+void managerrepassword()
 {
 	char w[6],t[6],j[6];
 	int i;
 	FILE *fp;
 	char fa[6];
-	//fp=fopen("F:/zhangsi.txt","w+");
-	//scanf("%s",&fa);
-	//fputs(fa,fp);
-	//fclose(fp);
 	printf("\t\t\t请输入管理员密码(6位)\n"); 
 	printf("\t\t\t");
 	scanf("%s",&w);
-	fp=fopen("F:/zhangsi.txt","a+");
+	fp=fopen("F:/managerpassword.txt","a+");
 	fscanf(fp,"%s",t);
 	fclose(fp);
 	if((strcmp(w,t))==0)
@@ -821,7 +782,7 @@ void stu42()
 	    	{
 	    		printf("\t\t\t请输入新密码\n");
 	    		{
-	    			fp=fopen("F:/zhangsi.txt","w+");
+	    			fp=fopen("F:/managerpassword.txt","w+");
 	    			printf("\t\t\t");
 	    			scanf("%s",&t);
 	    			fputs(t,fp);
@@ -835,7 +796,7 @@ void stu42()
 		}
 		if(i==2)
 		{
-			stu12();
+			managermenu();
 		}
 		if(i!=1&&i!=2)
 		{
@@ -853,11 +814,10 @@ void stu42()
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
-	stu1();		
+	mainmenu();		
 }
 main()
 {
-	system("color F0");
-	stu1();
- } 
- 
+	system("color F1");
+	mainmenu();
+} 
