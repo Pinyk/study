@@ -1,9 +1,11 @@
+//用户说明！！！ 
 /*本系统为小区水费管理系统
 主要为小区管理员，用户提供水费查询
 其功能如下：
 用户端：
-1：查询某月用水量，并输出所产生的水费。 
-2：显示本年各月份用水量和水费。  
+1：用户名由管理员统一下发，初始密码为123456 
+2：查询某月用水量，并输出所产生的水费。 
+3：显示本年各月份用水量和水费。  
 注：水费会详细指出超出限制的用水量和产生的水费 
 这里每月用户用水量不超过12吨每吨0.8元，超过的部分按每吨1.8元。
 管理员端：
@@ -12,31 +14,38 @@
 3：更改某一用户某一个月的用水量并自动更改水费。
 4：增加某用户一个月的用水量。 
 5：删除某用户一个月的用水量。 */
+/*
+本程序在外部一共写入了3个txt文件，分别为：
+userpassword.txt    用户的账户密码 
+managerpassword.txt     管理员的账户密码（唯一）
+userdata.txt      储存所有用户的水量 
+*/
 #include<stdio.h>
 #include<stdlib.h> 
 #include<conio.h> 
 #include<string.h>
 #include<time.h>
-int A=2;
-int B=4;
-int C=2;
-typedef struct teacher
+typedef struct teacher  //用户的信息链表 
 {
-	int lnumber;
-	int dnumber;
-	int hnumber;
-	int month;
-	int water;
-	float cost;
+	int lnumber; //楼号 
+	int dnumber; //单元号 
+	int hnumber; //户号 
+	int month;  //月份 
+	int water;  //水量 
+	float cost;  //花费 
 	struct teacher *next;
 }dog,*cat;
-typedef struct teachers
+typedef struct teachers //系统所有的用户密码链表 
 {
 	char min[20];
 	char max[20];
 	struct teachers *next1;
 }man,*woman;
+int A=2;
+int B=4;  //这三个全局变量是用于随机生成用户信息中 
+int C=2;
 cat g;
+void sm(); 
 void mainmenu();
 void usermenu();
 void managermenu();
@@ -58,7 +67,8 @@ void userlogin();
 void day();
 void stu43();
 int l=1;
-void mdelete()
+char users[6];
+void mdelete() 
 {
 	cat m;
 	cat h;
@@ -261,12 +271,6 @@ void usort()
     int e4;
     int e5;
     float e6;
-	int a,b,c,y;
-	printf("\t\t\t请输入要查询的用户(几楼，几单，几户)\n");
-	printf("\t\t\t");
-	scanf("\t\t\t%d %d %d",&a,&b,&c);
-	//printf("请输入要查询的月份\n");
-	//scanf("%d",&y);
 	readdata();
 	m=g;
 	h=(cat)malloc(sizeof(dog));
@@ -274,11 +278,11 @@ void usort()
     r=h; 
 	while(m!=NULL)
 	{
-		if(m->lnumber==a&&m->dnumber==b&&m->hnumber==c)
+		if(m->lnumber==(users[0]-48)&&m->dnumber==(users[2]-48)&&m->hnumber==(users[4]-48))
 		{
 			bang=(dog*)malloc(sizeof(dog));
 	        bang->next=r->next;
-			printf("\t\t\t您本年第%d月用水量为：%d\n\t\t\t水费为：%1.1f\n",m->month,m->water,m->cost);
+			//printf("\t\t\t您本年第%d月用水量为：%d\n\t\t\t水费为：%1.1f\n",m->month,m->water,m->cost);
 			bang->lnumber=m->lnumber;
 			bang->dnumber=m->dnumber;
 			bang->hnumber=m->hnumber;
@@ -331,20 +335,17 @@ void usort()
 void usearch()
 {
 	cat m;
-	int a,b,c,y;
-	printf("\t\t\t请输入要查询的用户(几楼，几单，几户)\n");
-	printf("\t\t\t");
-	scanf("%d %d %d",&a,&b,&c);
+	int y;
 	printf("\t\t\t请输入要查询的月份\n");
 	printf("\t\t\t");
 	scanf("%d",&y);
 	readdata();
-	m=g;
+	m=g; 
 	while(m!=NULL)
 	{
-		if(m->lnumber==a&&m->dnumber==b&&m->hnumber==c&&m->month==y)
+		if(m->lnumber==(users[0]-48)&&m->dnumber==(users[2]-48)&&m->hnumber==(users[4]-48)&&m->month==y)
 		{
-			printf("\t\t\t你好第%d楼，第%d单，第%d户\n\t\t\t您本月用水量为：%d\n\t\t\t水费为：%1.1f",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
+			printf("\t\t\t您好，您本月用水量为：%d吨\n\t\t\t水费为：%1.1f元\n",m->water,m->cost);
 			break;
 		}
 		else
@@ -352,7 +353,7 @@ void usearch()
 	}
 	if(m==NULL)
 	{
-		printf("\t\t\t抱歉无此用户或无此月水费\n");
+		printf("\t\t\t抱歉无此月水费\n");
 	}
 	printf("\t\t\t按任意键返回上一级\n");
     getch(); 
@@ -381,7 +382,7 @@ void readdata()/*用户端读取文件*/
    fclose(fp);
    g=h;
 }
-void news()
+void news()//随机信息生成函数 
 {
     FILE *fp;
     int x,y;
@@ -390,17 +391,17 @@ void news()
     dog* bang;
     dog* r;
     fp=fopen("F:/userdata.txt","r");
-    printf("\t\t\t请输入激活数\n");
+    printf("\t\t\t请输入校验码\n"); 
     printf("\t\t\t");
     scanf("%d",&y);
     if(fp==NULL)
     {
 	    if(y==1)
 		{
-			g=create();
+			g=create();//如果为第一次随机生成，则先开始在文件里创建链表信息 
 		}
     }
-    else
+    else//如果链表中已有用户信息，则先进行读取信息，再将之后的信息追加到临时链表后面 
     {
     	if(y==1)
     	{
@@ -419,7 +420,7 @@ void news()
 		fclose(fp);
    		l=r->month+1;
    		fp=fopen("F:/userdata.txt","a+");
-   		printf("\t\t\t请输入唤醒数\n");
+   		printf("\t\t\t是否对为整体用户随机生成一个月的水量（1/0）\n");
    		srand((unsigned)(time(NULL)));
    		printf("\t\t\t");
    		scanf("%d",&x); 
@@ -437,7 +438,7 @@ void news()
 					   bang->dnumber=j;
 					   bang->hnumber=i;
 					   bang->month=l; 
-					   bang->water=rand()%(20-1)+1;
+					   bang->water=rand()%(20-1)+1;//随机生成 
 					   if(bang->water<=12)
 						{
 						bang->cost=bang->water*0.8;
@@ -453,7 +454,7 @@ void news()
    				} 
   			}
     		l=l+1;
-    		printf("\t\t\t请输入唤醒数\n");
+    		printf("\t\t\t再次对为整体用户随机生成一个月的水量（1/0）？\n");
     		printf("\t\t\t");
     		scanf("%d",&x);   
   			}
@@ -467,7 +468,7 @@ void news()
     system("cls");
 	mainmenu();		
 }
-cat create()
+cat create()//第一次随机信息生成函数 
 {
 	cat h;
 	FILE *fp;
@@ -479,7 +480,7 @@ cat create()
 	r=h;
 	fp=fopen("F:/userdata.txt","w+");
 	srand((unsigned)(time(NULL)));
-	printf("\t\t\t请输入唤醒数\n");
+	printf("\t\t\t是否对为整体用户随机生成一个月的水量（1/0）\n");
 	printf("\t\t\t");
     scanf("%d",&x);
 	while(x!=0)
@@ -511,7 +512,7 @@ cat create()
       				}
     			} 
   		}  
-    	printf("\t\t\t请输入唤醒数\n");
+    	printf("\t\t\t再次对为整体用户随机生成一个月的水量（1/0）？\n");
     	printf("\t\t\t");
    		scanf("%d",&x);
    		l=l+1; 
@@ -523,12 +524,14 @@ void output(cat h)
 {
 	dog *a;
 	a=h->next;
+	printf("\t\t\t--------------------------------------------------------\n");
+	printf("\t\t\t|楼号   单元号   户号   月份   用水量（吨）   水费（元）|\n"); 
 	while(a!=NULL)
 	{
-		printf("\t\t\t第%d楼，第%d单元，第%d户，第%d月份用水量%d，水费为%1.1f\n",a->lnumber,a->dnumber,a->hnumber,a->month,a->water,a->cost);
-		//printf("%d\n",a->water);
+		printf("\t\t\t|  %d\t  %d\t  %d\t %d\t   %d\t       %-6.1lf   |\n",a->lnumber,a->dnumber,a->hnumber,a->month,a->water,a->cost);
 		a=a->next;
 	}
+	printf("\t\t\t--------------------------------------------------------\n");
 }
 void savedata(cat h)/*写文件*/ 
 {
@@ -537,7 +540,6 @@ void savedata(cat h)/*写文件*/
 	fp=fopen("F:/userdata.txt","w+");
 	while(h!=NULL)
 	{
-
 	   fwrite(h,sizeof(dog),1,fp);
 	   h=h->next; 
 	}
@@ -545,8 +547,8 @@ void savedata(cat h)/*写文件*/
 }
 void display()
 {
-	readdata();
-	output(g);
+	readdata(); 
+	output(g); 
 	printf("\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
@@ -560,7 +562,7 @@ void mainmenu()
 	printf("\t\t\t请选择用户端还是管理员端\n");
 	printf("\t\t\t输入1：用户端\n");
 	printf("\t\t\t输入2：管理员端\n");
-	printf("\t\t\t输入3：随机生成用户信息\n");
+	printf("\t\t\t输入3：系统使用说明\n");
 	printf("\t\t\t输入0：退出程序\n");
 	printf("\t\t\t");
 	scanf("%d",&a);
@@ -569,17 +571,54 @@ void mainmenu()
 	{
 		case 1:userlogin();break;
 		case 2:managerrepassword();break;
-		case 3:news();break;
-		case 0:printf("\t\t\t退出程序\n"); break;
+		case 3://news();
+			sm();
+			break;
+		case 0:printf("\t\t\t已退出"); exit(1); break;
 		default:printf("\t\t\t没有此客户端\n");
 	}
 }
+
+void sm()
+{
+	printf("\t\t\t\t\t     使用说明！！！\n");
+	printf("\t\t\t-----------------------------------------------------------\n");
+	printf("\t\t\t| 本系统为小区水费管理系统                                |\n");
+	printf("\t\t\t| 主要为小区管理员，用户提供水费查询                      |\n");
+	printf("\t\t\t|                                                         |\n");
+	printf("\t\t\t| 一.用户登录说明：                                       |\n");
+	printf("\t\t\t| 用户名由管理员统一下发，初始密码为123456	          |\n");
+	printf("\t\t\t|                                                         |\n");
+	printf("\t\t\t| 二.用户功能说明：                                       |\n");
+	printf("\t\t\t| 1.查询某月用水量，并显示所产生的水费。                  |\n");		
+	printf("\t\t\t| 2.本年各月份用水量和水费统计图                          |\n");			
+	printf("\t\t\t|                                                         |\n");
+	printf("\t\t\t| 三.管理员登录说明：                                     |\n");
+	printf("\t\t\t| 管理的密码仅由内部人员可知，用户不可使用该功能          |\n");
+	printf("\t\t\t|                                                         |\n");
+	printf("\t\t\t| 四.管理员功能说明：                                     |\n");
+	printf("\t\t\t| 1：查询某一用户某一个月的用水量和水费。                 |\n");			
+	printf("\t\t\t| 2：查询某一单元中各个用户的某一个月的用水量和水费。     |\n");
+	printf("\t\t\t| 3：更改某一用户某一个月的用水量并自动更改水费。         |\n");
+	printf("\t\t\t| 4：增加某用户一个月的用水量。                           |\n");
+	printf("\t\t\t| 5：删除某用户一个月的用水量。                           |\n");
+	printf("\t\t\t|                                                         |\n");
+	printf("\t\t\t| 五.水费使用说明                                         |\n");
+	printf("\t\t\t| 用水量不超过12吨每吨0.8元，超过的部分按每吨1.8元计算    |\n");
+	printf("\t\t\t-----------------------------------------------------------\n");
+	printf("\t\t\t按任意键返回上一级\n");
+	getch(); 
+	system("cls");
+	mainmenu();	
+} 
+
+
 void usermenu()
 {
 	int a;
 	printf("\t\t---------------------------------------------------------------------\n");
 	printf("\t\t\t欢迎来到用户端\n");
-	printf("\t\t\t功能1：查询某月用水量，并输出所产生的水费。\n");
+	printf("\t\t\t功能1：查询某月用水量，并查看所产生的水费。\n");
 	printf("\t\t\t功能2：显示并排序本年各月份用水量和水费。\n");
 	printf("\t\t\t功能3：返回主菜单。\n");
 	printf("\t\t\t");
@@ -630,8 +669,9 @@ void managermenu()
 void userlogin()
 {
 	char i[20],j[20],fa[20],fa1[20],t[20],w[20];
-	int m,n,k;
+	int m,n,k,s=0;
 	int x;
+	char c;
     woman h;
     FILE *fp;
     man* bang;
@@ -649,89 +689,126 @@ void userlogin()
 	    r=bang;
 	    bang=(woman)malloc(sizeof(man));
 	    bang->next1=r->next1;
-   }
-   fclose(fp);
-   q=h;
-   printf("\t\t\t请选择功能：\n");
-   printf("\t\t\t功能1：用户登陆\n");
-   printf("\t\t\t功能2：用户注册\n");
-   printf("\t\t\t功能3：修改密码\n");
-   printf("\t\t\t");
-   scanf("%d",&x);
-   if(x==1)
-   {
-   	printf("\t\t\t请输入用户名\n");
-   	printf("\t\t\t");
-	scanf("%s",&i);
-	printf("\t\t\t请输入密码\n");
-	printf("\t\t\t");
-	scanf("%s",&j);
-   while(q!=NULL)
-   {
-   	if((strcmp(i,q->min))==0&&(strcmp(j,q->max))==0)
-   	{
-   		usermenu();
-   		break;
+    }
+    fclose(fp);
+    q=h;
+    printf("\t\t\t请选择功能：\n");
+    printf("\t\t\t功能1：用户登陆\n");
+   //printf("\t\t\t功能2：用户注册\n");
+    printf("\t\t\t功能2：修改密码\n");
+    printf("\t\t\t");
+    scanf("%d",&x);
+    if(x==1)
+    {
+	   	printf("\t\t\t请输入用户名\n");
+	   	printf("\t\t\t");
+		scanf("%s",&i);
+		printf("\t\t\t请输入密码\n");
+		printf("\t\t\t");
+		while((c=getch()) != '\r')
+		{
+			j[s] = c;
+			s++;
+			if(c!='\b')
+				printf("*");
+			else
+				printf("\b \b");
+		}
+		printf("\n"); 
+		s=0;
+		while(s<5)
+		{
+			users[s]=i[s];
+			s++;
+		}	////登录测试 
+			//scanf("%s",&j);
+	    while(q!=NULL)
+	    {
+	   	if((strcmp(i,q->min))==0&&(strcmp(j,q->max))==0)
+	   	{
+	   		system("cls");
+	   		usermenu();
+	   		break;
+		}
+			q=q->next1;
+	    }	
+	    if(q==NULL)
+	    {
+		   	printf("\t\t\t用户名或密码输入错误\n");
+	    }
+		system("cls"); 
 	}
-	q=q->next1;
+   if(x==3)
+    {
+	   	printf("\t\t\t请输入用户名\n");
+	   	printf("\t\t\t");
+		scanf("%s",&i);
+	   	while(q!=NULL)
+	    {
+	   	if((strcmp(i,q->min))==0)
+	   	{
+	   	   printf("\t\t\t此用户名已被注册\n");
+	   	   break;
+		}
+		q=q->next1;
+	    }
+	    if(q==NULL)
+	    {
+		   	fp=fopen("F:/userpassword.txt","a+");
+		   	printf("\t\t\t请输入密码\n");
+		   	printf("\t\t\t");
+		   	s = 0;
+		   	while((c=getch()) != '\r')
+			{
+				j[s] = c;
+				s++;
+				if(c!='\b')
+					printf("*");
+				else
+					printf("\b \b");
+			}
+			printf("\n");
+		   	fputs(i,fp);
+			fputc('\n',fp);
+			fputs(j,fp);
+			fputc('\n',fp);
+			fclose(fp);
+			printf("\t\t\t注册成功\n");
+	   		}	
+	} 
+	if(x==2)
+	{
+		printf("\t\t\t请输入用户名\n");
+		printf("\t\t\t");
+		scanf("%s",&i);
+		printf("\t\t\t请输入密码\n");
+		printf("\t\t\t");
+		s = 0;
+		while((c=getch()) != '\r')
+		{
+			j[s] = c;
+			s++;
+			if(c!='\b')
+				printf("*");
+			else
+				printf("\b \b");
+		}
+		printf("\n");
+	    while(q!=NULL)
+	    {
+	   	if((strcmp(i,q->min))==0&&(strcmp(j,q->max))==0)
+	   	{
+	   		printf("\t\t\t请输入要修改的密码\n");
+	   		printf("\t\t\t");
+	   		scanf("%s",&q->max);
+	   		break;
+		}
+		q=q->next1;
    }	
    if(q==NULL)
-   {
-   	printf("\t\t\t用户名或密码输入错误\n");
-   }
-   }
-   if(x==2)
-   {
-   	printf("\t\t\t请输入用户名\n");
-   	printf("\t\t\t");
-	scanf("%s",&i);
-   	while(q!=NULL)
-   {
-   	if((strcmp(i,q->min))==0)
-   	{
-   	   printf("\t\t\t此用户名已被注册\n");
-   	   break;
-	}
-	q=q->next1;
-   }
-   if(q==NULL)
-   {
-   	fp=fopen("F:/userpassword.txt","a+");
-   	printf("\t\t\t请输入密码\n");
-   	printf("\t\t\t");
-   	scanf("%s",&j);
-   	fputs(i,fp);
-	fputc('\n',fp);
-	fputs(j,fp);
-	fputc('\n',fp);
-	fclose(fp);
-	printf("\t\t\t注册成功\n");
-   }	
-} 
-if(x==3)
-{
-	printf("\t\t\t请输入用户名\n");
-	printf("\t\t\t");
-	printf("\t\t\t");
-	scanf("%s",&i);
-	printf("\t\t\t请输入密码\n");
-	printf("\t\t\t");
-	scanf("%s",&j);
-   while(q!=NULL)
-   {
-   	if((strcmp(i,q->min))==0&&(strcmp(j,q->max))==0)
-   	{
-   		printf("\t\t\t请输入要修改的密码\n");
-   		printf("\t\t\t");
-   		scanf("%s",&q->max);
-   		break;
-	}
-	q=q->next1;
-   }	
-   if(q==NULL)
-   {
-   	printf("\t\t\t用户名或密码输入错误\n");
-   }
+    {
+   		printf("\t\t\t用户名或密码输入错误\n");
+    }
 	h=h->next1;
 	fp=fopen("F:/userpassword.txt","w+");
 	while(h!=NULL)
@@ -757,12 +834,22 @@ if(x!=3&&x!=2&&x!=1)
 void managerrepassword()
 {
 	char w[6],t[6],j[6];
-	int i;
+	int i,s = 0;
 	FILE *fp;
 	char fa[6];
+	char c;
 	printf("\t\t\t请输入管理员密码(6位)\n"); 
 	printf("\t\t\t");
-	scanf("%s",&w);
+	while((c=getch()) != '\r')
+	{
+		w[s] = c;
+		s++;
+		if(c!='\b')
+			printf("*");
+		else
+			printf("\b \b");
+	}
+	printf("\n");
 	fp=fopen("F:/managerpassword.txt","a+");
 	fscanf(fp,"%s",t);
 	fclose(fp);
@@ -796,6 +883,7 @@ void managerrepassword()
 		}
 		if(i==2)
 		{
+			system("cls");
 			managermenu();
 		}
 		if(i!=1&&i!=2)
