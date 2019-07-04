@@ -76,11 +76,11 @@ void mdelete()
 	dog* r;
 	dog* q;
 	int a,b,c,n,y;
-	printf("\t\t\t请输入要删除的用户(几楼，几单，几户)\n");
-	printf("\t\t\t");
+	printf("				   请输入要删除的用户(几楼，几单，几户)\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d %d %d",&a,&b,&c);
-	printf("\t\t\t请输入要删除的月份\n");
-	printf("\t\t\t");
+	printf("				   请输入要删除的月份\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&y);
 	readdata();
 	m=g;
@@ -98,7 +98,7 @@ void mdelete()
      	r=r->next;
 	}
 	savedata(m);
-	printf("\t\t\t按任意键返回上一级\n");
+	printf("\t\t\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
 	managermenu();		
@@ -167,11 +167,11 @@ void modify()
 {
 	cat m;
 	int a,b,c,n,y;
-	printf("\t\t\t请输入要更改的用户(几楼，几单，几户)\n");
-	printf("\t\t\t");
+	printf("				   请输入要查询的用户(几楼，几单，几户)\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d %d %d",&a,&b,&c);
-	printf("\t\t\t请输入要更改的月份\n");
-	printf("\t\t\t");
+	printf("				   请输入要更改的月份\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&y);
 	readdata();
 	m=g;
@@ -179,8 +179,8 @@ void modify()
 	{
 		if(m->lnumber==a&&m->dnumber==b&&m->hnumber==c&&m->month==y)
 		{
-			printf("\t\t\t请输入%d月份更改的用水量\n");
-			printf("\t\t\t");
+			printf("				   请输入要更改的用水量\n");
+			printf("\n\t\t\t\t   ----→  ");
 			scanf("%d",&n);
 			m->water=n;
 			if(m->water<=12)
@@ -191,7 +191,11 @@ void modify()
 		    {
 		 	m->cost=12*0.8+(m->water-12)*1.8;
 		    }
-			printf("\t\t\t第%d楼，第%d单，第%d户\n\t\t\t本月用水量为：%d\n\t\t\t水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
+		    printf("\t\t\t\t======================================================\n");
+			printf("\n");
+			printf("\t\t\t\t\t第%d楼，第%d单,第%d户\n\t\t\t\t\t第%d月用水量为：%d吨\n\t\t\t\t\t水费为：%1.1f元\n",m->lnumber,m->dnumber,m->hnumber,m->month,m->water,m->cost);
+			printf("\n");
+			printf("\t\t\t\t======================================================\n");
 			break;
 		}
      else
@@ -200,7 +204,7 @@ void modify()
 	 }
 	}
 	savedata(g);
-	printf("\t\t\t按任意键返回上一级\n");
+	printf("\t\t\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
 	managermenu();		
@@ -209,11 +213,11 @@ void msearch2()
 {
 	cat m;
 	int a,b,y;
-	printf("\t\t\t请输入要查询的信息(几楼，几单)\n");
-	printf("\t\t\t");
+	printf("				   请输入要查询的用户(几楼，几单)\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d %d",&a,&b);
-	printf("\t\t\t请输入要查询的月份\n");
-	printf("\t\t\t");
+	printf("				   请输入要查询的月份\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&y);
 	readdata();
 	m=g;
@@ -221,7 +225,13 @@ void msearch2()
 	{
 		if(m->lnumber==a&&m->dnumber==b&&m->month==y)
 		{
-			printf("\t\t\t第%d楼，第%d单,第%d户\n\t\t\t第%d月用水量为：%d\n\t\t\t水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->month,m->water,m->cost);
+			printf("\t\t\t\t======================================================\n");
+			printf("\n");
+			printf("\t\t\t\t\t第%d楼，第%d单,第%d户\n\t\t\t\t\t第%d月用水量为：%d吨\n\t\t\t\t\t水费为：%1.1f元\n",m->lnumber,m->dnumber,m->hnumber,m->month,m->water,m->cost);
+			printf("\n");
+			printf("\t\t\t\t======================================================\n");
+			printf("\n");
+			printf("\n");
 		}
 		m=m->next;
 	}
@@ -234,11 +244,11 @@ void msearch1()
 {
 	cat m;
 	int a,b,c,y;
-	printf("\t\t\t请输入要查询的用户(几楼，几单，几户)\n");
-	printf("\t\t\t");
+	printf("				   请输入要查询的用户(几楼，几单，几户)\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d %d %d",&a,&b,&c);
-	printf("\t\t\t请输入要查询的月份\n");
-	printf("\t\t\t");
+	printf("				   请输入要查询的月份\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&y);
 	readdata();
 	m=g;
@@ -246,13 +256,17 @@ void msearch1()
 	{
 		if(m->lnumber==a&&m->dnumber==b&&m->hnumber==c&&m->month==y)
 		{
-			printf("\t\t\t第%d楼，第%d单，第%d户\n\t\t\t本月用水量为：%d\n\t\t\t水费为：%1.1f\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
+			printf("\t\t\t\t======================================================\n");
+			printf("\n");
+			printf("\t\t\t\t\t第%d楼，第%d单，第%d户\n\t\t\t\t\t本月用水量为：%d吨\n\t\t\t\t\t水费为：%1.1f元\n",m->lnumber,m->dnumber,m->hnumber,m->water,m->cost);
+			printf("\n");
+			printf("\t\t\t\t======================================================\n");
 			break;
 		}
 		else
 		m=m->next;
 	}
-	printf("\t\t\t按任意键返回上一级\n");
+	printf("\t\t\t\t\t按任意键返回上一级\n");
 	getch(); 
     system("cls");
 	managermenu();		
@@ -336,8 +350,8 @@ void usearch()
 {
 	cat m;
 	int y;
-	printf("\t\t\t请输入要查询的月份\n");
-	printf("\t\t\t");
+	printf("				     请输入要查询的月份\n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&y);
 	readdata();
 	m=g; 
@@ -345,7 +359,9 @@ void usearch()
 	{
 		if(m->lnumber==(users[0]-48)&&m->dnumber==(users[2]-48)&&m->hnumber==(users[4]-48)&&m->month==y)
 		{
-			printf("\t\t\t您好，您本月用水量为：%d吨\n\t\t\t水费为：%1.1f元\n",m->water,m->cost);
+			printf("\t\t======================================================\n");
+			printf("\t\t\t\t您好，您本月用水量为：%d吨\n\t\t\t\t水费为：%1.1f元\n",m->water,m->cost);
+			printf("\t\t======================================================\n");
 			break;
 		}
 		else
@@ -355,7 +371,7 @@ void usearch()
 	{
 		printf("\t\t\t抱歉无此月水费\n");
 	}
-	printf("\t\t\t按任意键返回上一级\n");
+	printf("\t\t\t\t按任意键返回上一级\n");
     getch(); 
     system("cls");
     usermenu();			
@@ -543,7 +559,7 @@ void savedata(cat h)/*写文件*/
 	   fwrite(h,sizeof(dog),1,fp);
 	   h=h->next; 
 	}
-  fclose(fp);
+    fclose(fp);
 }
 void display()
 {
@@ -557,14 +573,20 @@ void display()
 void mainmenu()
 {
 	int a;
-	printf("\t\t-----------------------------------------\n");
-	printf("\t\t\t欢迎使用小区水费管理系统\n");
-	printf("\t\t\t请选择用户端还是管理员端\n");
-	printf("\t\t\t输入1：用户端\n");
-	printf("\t\t\t输入2：管理员端\n");
-	printf("\t\t\t输入3：系统使用说明\n");
-	printf("\t\t\t输入0：退出程序\n");
-	printf("\t\t\t");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("				      1.用户登录\n");
+	printf("				      2.管理员登录\n");
+	printf("				      3.系统使用说明\n");
+	printf("				      4.退出系统\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\t\t\t      请选择 | 1 | 2 | 3 | 4 | \n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&a);
 	system("cls");
 	switch(a)
@@ -574,7 +596,7 @@ void mainmenu()
 		case 3://news();
 			sm();
 			break;
-		case 0:printf("\t\t\t已退出"); exit(1); break;
+		case 4:printf("\t\t\t已退出"); exit(1); break;
 		default:printf("\t\t\t没有此客户端\n");
 	}
 }
@@ -616,12 +638,19 @@ void sm()
 void usermenu()
 {
 	int a;
-	printf("\t\t---------------------------------------------------------------------\n");
-	printf("\t\t\t欢迎来到用户端\n");
-	printf("\t\t\t功能1：查询某月用水量，并查看所产生的水费。\n");
-	printf("\t\t\t功能2：显示并排序本年各月份用水量和水费。\n");
-	printf("\t\t\t功能3：返回主菜单。\n");
-	printf("\t\t\t");
+		printf("\t\t======================================================");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t  1.查询某月用水量，并查看所产生的水费。\n");
+	printf("\t\t\t  2.显示并排序本年各月份用水量和水费。\n");
+	printf("\t\t\t  3.返回主菜单。\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\t\t\t      请选择 | 1 | 2 | 3 | \n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&a);
 	system("cls");
 	switch(a)
@@ -639,16 +668,23 @@ void usermenu()
 void managermenu()
 {
 	int b;
-	printf("\t\t---------------------------------------------------------------------\n");
-	printf("\t\t\t欢迎来到管理员端\n");
-	printf("\t\t\t功能1：查询某一用户某一个月的用水量和水费。\n");
-	printf("\t\t\t功能2：查询某一单元中各个用户的某一个月的用水量和水费。\n");
-	printf("\t\t\t功能3：更改某一用户的用水量并自动更改水费。\n");
-	printf("\t\t\t功能4：增加某用户一个月的用水量。\n");
-	printf("\t\t\t功能5：删除某用户一个月的用水量。\n");
-	printf("\t\t\t功能6：显示所有用户各月用水量和水费\n");
-	printf("\t\t\t功能7：返回主页面\n");
-	printf("\t\t\t");
+	printf("\t\t\t======================================================");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t  1：查询某一用户某一个月的用水量和水费。\n");
+	printf("\t\t\t  2：查询某一单元中各个用户的某一个月的用水量和水费。\n");
+	printf("\t\t\t  3：更改某一用户的用水量并自动更改水费。\n");
+	printf("\t\t\t  4：增加某用户一个月的用水量。\n");
+	printf("\t\t\t  5：删除某用户一个月的用水量。\n");
+	printf("\t\t\t  6：显示所有用户各月用水量和水费\n");
+	printf("\t\t\t  7：返回主页面\n");	
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t======================================================");
+	printf("\n");
+	printf("\t\t\t      请选择 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | \n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d",&b);
 	system("cls");
 	switch(b)
@@ -692,19 +728,26 @@ void userlogin()
     }
     fclose(fp);
     q=h;
-    printf("\t\t\t请选择功能：\n");
-    printf("\t\t\t功能1：用户登陆\n");
-   //printf("\t\t\t功能2：用户注册\n");
-    printf("\t\t\t功能2：修改密码\n");
-    printf("\t\t\t");
+    printf("\t\t======================================================");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("				      1.用户登录\n");
+	printf("				      2.修改密码\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\t\t\t      请选择 | 1 | 2 | \n");
+	printf("\n\t\t\t\t   ----→  ");
     scanf("%d",&x);
     if(x==1)
     {
-	   	printf("\t\t\t请输入用户名\n");
-	   	printf("\t\t\t");
+	   	printf("\t\t\t\t请输入用户名\n");
+	   	printf("\t\t\t\t");
 		scanf("%s",&i);
-		printf("\t\t\t请输入密码\n");
-		printf("\t\t\t");
+		printf("\t\t\t\t请输入密码\n");
+		printf("\t\t\t\t");
 		while((c=getch()) != '\r')
 		{
 			j[s] = c;
@@ -838,8 +881,14 @@ void managerrepassword()
 	FILE *fp;
 	char fa[6];
 	char c;
-	printf("\t\t\t请输入管理员密码(6位)\n"); 
-	printf("\t\t\t");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\n");
+	printf("				    请输入管理员密码(6位)\n");
+	printf("\n");
+	printf("\t\t======================================================");
+	printf("\n");
+	printf("\n\t\t\t\t   ----→  "); 
 	while((c=getch()) != '\r')
 	{
 		w[s] = c;
@@ -855,10 +904,19 @@ void managerrepassword()
 	fclose(fp);
 	if((strcmp(w,t))==0)
 	{
-		printf("\t\t\t请输入所选功能：\n");
-		printf("\t\t\t1:修改密码\n");
-		printf("\t\t\t2:进入管理员端\n");
-		printf("\t\t\t");
+		system("cls");
+		printf("\t\t======================================================");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("				  1.修改密码\n");
+		printf("				  2.进入管理员端\n");
+		printf("\n");
+		printf("\n");
+		printf("\t\t======================================================");
+		printf("\n");
+		printf("\t\t\t      请选择 | 1 | 2 | \n");
+		printf("\n\t\t\t\t   ----→  ");
 		scanf("%d",&i);
 	    if(i==1)
 	    {
@@ -904,6 +962,7 @@ void managerrepassword()
     system("cls");
 	mainmenu();		
 }
+
 main()
 {
 	system("color F1");
