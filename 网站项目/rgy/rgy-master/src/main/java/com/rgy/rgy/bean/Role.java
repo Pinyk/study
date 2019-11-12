@@ -1,53 +1,40 @@
 package com.rgy.rgy.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-//角色管理
+/**
+ * 角色
+ * @Author: Silvia
+ * @Date: 2019/11/6  22:49
+ */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "roleId")
     private int roleId;
 
-    @Column
+    @Column(name = "roleName")
     private String roleName;
 
-    @Column
+    @Column(name = "roleNote")
     private String roleNote;
 
-    public int getRoleId() {
-        return roleId;
-    }
+    @Column(name = "infoState")
+    private int infoState;
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleNote() {
-        return roleNote;
-    }
-
-    public void setRoleNote(String roleNote) {
-        this.roleNote = roleNote;
-    }
-
-    public Role(int roleId, String roleName, String roleNote) {
-        this.roleId = roleId;
+    public Role(String roleName, String roleNote, int infoState) {
         this.roleName = roleName;
         this.roleNote = roleNote;
-    }
-
-    public Role(String roleName, String roleNote) {
-        this.roleName = roleName;
-        this.roleNote = roleNote;
+        this.infoState = infoState;
     }
 }

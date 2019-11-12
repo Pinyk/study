@@ -4,10 +4,7 @@ import com.rgy.rgy.bean.Result;
 import com.rgy.rgy.bean.Template;
 import com.rgy.rgy.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class TemplateController {
 
     /**
      * 返回所有模板
+     * @return
      */
     @GetMapping("/retall")
     public Result retall(){
@@ -36,18 +34,26 @@ public class TemplateController {
 
     /**
      * 新增/修改模板
+     * @param templateName
+     * @param basis
+     * @param equipmentTypeId
+     * @param editor
+     * @return
      */
     @PostMapping("/add")
-    public Result tadd(String templateName, String basis, String equipmentTypeId, String editor){
+    public Result tadd(@RequestParam String templateName,@RequestParam String basis,
+                       @RequestParam String equipmentTypeId,@RequestParam String editor){
         int templateId = templateService.tadd(templateName,basis,equipmentTypeId,editor);
         return new Result("success","新增成功",templateId);
     }
 
     /**
      * 查询模板
+     * @param templateName
+     * @return
      */
     @GetMapping("/name")
-    public Result tquery(String templateName){
+    public Result tquery(@RequestParam String templateName){
         Template template = templateService.tquery(templateName);
         if(template!=null){
             return new Result("success","查找成功",template);
@@ -58,9 +64,11 @@ public class TemplateController {
 
     /**
      * 删除模板
+     * @param templateId
+     * @return
      */
     @GetMapping("/delete")
-    public Result tdel(int templateId){
+    public Result tdel(@RequestParam int templateId){
         if(templateService.tdel(templateId)){
             return new Result("success","删除成功");
         }else{

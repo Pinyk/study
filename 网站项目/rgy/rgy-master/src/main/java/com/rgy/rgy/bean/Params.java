@@ -16,11 +16,11 @@ public class Params {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "paramsId")
-    private int paramsId;
+    private Integer paramsId;
 
     @ManyToOne(targetEntity = Items.class)
     @JoinColumn(name = "itemsId")
-    private int itemsId;
+    private Integer itemsId;
 
     @Column
     private String paramsName;
@@ -44,5 +44,5 @@ public class Params {
     private String quaLowerLim;
 
     @Column
-    private int infoState;
+    private Integer infoState;
 }

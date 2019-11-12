@@ -61,7 +61,4 @@ public class EquipmentType {
         this.infoState = infoState;
     }
 
-    public EquipmentType() {
-    }
-
 }

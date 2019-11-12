@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 /**
  * 报告模板表
- * 与设备类型表和用户主键暂时没有外键约束
  */
 
 @Data
@@ -20,7 +19,7 @@ public class Template {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "templateId")
-    private int templateId;
+    private Integer templateId;
 
     @Column
     private String templateName;
@@ -38,7 +37,7 @@ public class Template {
     private String editorDate;
 
     @Column
-    private int infoState;
+    private Integer infoState;
 
     public int getTemplateId() {
         return templateId;

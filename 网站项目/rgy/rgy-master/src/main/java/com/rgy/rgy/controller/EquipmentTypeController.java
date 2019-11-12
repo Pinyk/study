@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @Author: gaoyk
+ * @Date: 2019/10/27 11:15
+ */
+
 @RestController
 @RequestMapping("/equipmentType")
 public class EquipmentTypeController {

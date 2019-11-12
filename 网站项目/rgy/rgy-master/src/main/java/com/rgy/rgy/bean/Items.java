@@ -17,11 +17,11 @@ public class Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "itemsId")
-    private int itemsId;
+    private Integer itemsId;
 
     @ManyToOne(targetEntity = Template.class)
     @JoinColumn(name = "templateId")
-    private int templateId;
+    private Integer templateId;
 
     @Column
     private String itemsName;
@@ -30,12 +30,16 @@ public class Items {
     private String sort;
 
     @Column
-    private int infoState;
+    private Integer infoState;
 
     public Items(int templateId, String itemsName, String sort, int infoState) {
         this.templateId = templateId;
         this.itemsName = itemsName;
         this.sort = sort;
         this.infoState = infoState;
+    }
+
+    public void setTemplateId(Integer templateId) {
+        this.templateId = templateId;
     }
 }

@@ -4,10 +4,7 @@ import com.rgy.rgy.bean.Items;
 import com.rgy.rgy.bean.Result;
 import com.rgy.rgy.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,15 +22,20 @@ public class ItemsController {
     /**
      * 新增/修改试验项
      * templateId为上一步(/templates/add)返回参数
+     * @param itemsName
+     * @param sort
+     * @param templateId
+     * @return
      */
     @PostMapping("/add")
-    public Result iadd(String itemsName, String sort, int templateId){
+    public Result iadd(@RequestParam String itemsName,@RequestParam String sort, int templateId){
         int itemsId = itemsService.iadd(itemsName,sort,templateId);
         return new Result("success","新增成功", itemsId);
     }
 
     /**
      * 返回所有试验项
+     * @return
      */
     @GetMapping("/ireturn")
     public Result ireturnAll(){
@@ -45,8 +47,13 @@ public class ItemsController {
         }
     }
 
+    /**
+     * 删除试验项
+     * @param itemsId
+     * @return
+     */
     @GetMapping("delete")
-    public Result idel(int itemsId){
+    public Result idel(@RequestParam int itemsId){
         if(itemsService.idel(itemsId)){
             return new Result("success","删除成功");
         }else{
