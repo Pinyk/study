@@ -24,12 +24,16 @@ void CrtHuffmanTree(HuffmanTree ht,int w[],int n){
     int i,s1,s2,m;
     m=2*n-1;
     for(i=0;i<n;i++){
-        ht[i].weight=w[i];ht[i].parent=-1;
-        ht[i].lchild=-1;ht[i].rchild=-1;
+        ht[i].weight=w[i];
+		ht[i].parent=-1;
+        ht[i].lchild=-1;
+		ht[i].rchild=-1;
     }
     for(i=n;i<m;i++){
-        ht[i].weight=0;ht[i].parent=-1;
-        ht[i].lchild=-1;ht[i].rchild=-1;
+        ht[i].weight=0;
+		ht[i].parent=-1;
+        ht[i].lchild=-1;
+		ht[i].rchild=-1;
     }
     /*选择 合并*/
     for(i=n;i<m;i++) {
@@ -46,8 +50,10 @@ void select(HuffmanTree ht,int pos,int *s1,int *s2){
     m1=m2=MAXINT;/*m2存放次小权值，s2是m2在数组的下标*/ 
     for(j=0;j<=pos;j++) {
         if(ht[j].weight<m1&&ht[j].parent==-1){
-            m2=m1;*s2=*s1;
-            *s1=j;m1=ht[j].weight;
+            m2=m1;
+			*s2=*s1;
+            *s1=j;
+			m1=ht[j].weight;
         }
         else if(ht[j].weight<m2&&ht[j].parent==-1){
             m2=ht[j].weight;
@@ -60,17 +66,22 @@ void select(HuffmanTree ht,int pos,int *s1,int *s2){
 }
 
 void CrtHuffmanCode(HuffmanTree ht,HuffmanCode hc,int n){
-    char *cd;int start,c,p,i;
+    char *cd;
+	int start,c,p,i;
     cd=(char*)malloc(n*sizeof(char));
     cd[n-1]='\0';   
     for(i=0;i<n;i++){
-        start=n-1;c=i;
+        start=n-1;
+		c=i;
         p=ht[i].parent;
         while(p!=-1){
-            --start;
-            if(ht[p].lchild==c) cd[start]='0';
-            else    cd[start]='1';
-            c=p;p=ht[p].parent;
+            start--;
+            if(ht[p].lchild==c)
+				cd[start]='0';
+            else
+			    cd[start]='1';
+            c=p;
+			p=ht[p].parent;
         }
         hc[i]=(char*)malloc((n-start)*sizeof(char));        
         //printf("%s\n",&cd[start]);
@@ -85,7 +96,6 @@ void printcode(char s[],HuffmanCode hc){
     for(int i=0;i<N;i++){
         printf("%c:",s[i]);
         printf("%s\n",hc[i]);
-
     }
 }
 void chartocode(charcode c,char s[],HuffmanCode hc){
@@ -100,14 +110,22 @@ void chartocode(charcode c,char s[],HuffmanCode hc){
     printf("\n");   
 }
 void  numtochar(numcode ns,HuffmanTree ht,char s[]){
-    char *p=ns;int key;HTNode g;
+    char *p=ns;
+	int key;
+	HTNode g;
     while(*p!='\0'){
         g=ht[M-1];
         //printf("\nht[M-1]=%d\n",g.weight);                
         while(g.lchild!=-1&&g.rchild!=-1&&(*p!='\0')){
             switch(*p){              
-            case '0':key=g.lchild;g=ht[g.lchild];break;
-            case '1':key=g.rchild;g=ht[g.rchild];break;
+            case '0':
+				key=g.lchild;
+				g=ht[g.lchild];
+				break;
+            case '1':
+				key=g.rchild;
+				g=ht[g.rchild];
+				break;
             }
             p++;
             //printf("P++=%c\n",*p);
@@ -124,18 +142,18 @@ int main(){
 	numcode ns;
     char s[N]={'A','B','C','D','E','F'};
     int  w[N];
-
     for(int i=0;i<N;i++){
         scanf("%d",&w[i]) ;
     } 
     scanf("%s",&c);
     scanf("%s",&ns);
     CrtHuffmanTree(ht,w,6);
-
-
+    
     CrtHuffmanCode(ht,hc,6);
-    printcode(s,hc);
-    chartocode(c,s,hc); 
+    
+	printcode(s,hc);
+    
+	chartocode(c,s,hc); 
 
     numtochar(ns,ht,s);
 }
